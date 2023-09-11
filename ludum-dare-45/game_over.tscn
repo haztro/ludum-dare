@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GradientTexture" id=1]
+
+[node name="game_over" type="Node"]
+
+[node name="background" type="Sprite" parent="."]
+texture = SubResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 128, 72 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Sprite2" type="Sprite" parent="."]

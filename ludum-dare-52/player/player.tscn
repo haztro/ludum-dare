@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://c58iokjlg25ju"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_necel"]
+[ext_resource type="PackedScene" uid="uid://b3pwtn3tpq120" path="res://player/head.tscn" id="2_q0imx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ubdj"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rnrnv"]
+radius = 0.8
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+script = ExtResource("1_necel")
+
+[node name="Head" parent="." instance=ExtResource("2_q0imx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_5ubdj")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.890196, 0.67451, 1)
+light_energy = 0.0
+omni_range = 4.0
+omni_attenuation = 2.92817
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.890196, 0.67451, 1)
+light_energy = 0.0
+omni_range = 4.0
+omni_attenuation = 2.92817
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_rnrnv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.55
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

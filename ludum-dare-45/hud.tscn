@@ -1,0 +1,153 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://hud.gd" type="Script" id=1]
+[ext_resource path="res://art/resources.png" type="Texture" id=2]
+[ext_resource path="res://font1.tres" type="DynamicFont" id=3]
+[ext_resource path="res://art/population.png" type="Texture" id=4]
+[ext_resource path="res://art/houses.png" type="Texture" id=5]
+[ext_resource path="res://art/houses_pressed.png" type="Texture" id=6]
+[ext_resource path="res://art/houses_hover.png" type="Texture" id=7]
+[ext_resource path="res://art/rockets.png" type="Texture" id=8]
+[ext_resource path="res://art/rockets_pressed.png" type="Texture" id=9]
+[ext_resource path="res://art/rockets_hover.png" type="Texture" id=10]
+[ext_resource path="res://art/mining.png" type="Texture" id=11]
+[ext_resource path="res://art/mining_pressed.png" type="Texture" id=12]
+[ext_resource path="res://art/mining_hover.png" type="Texture" id=13]
+
+[sub_resource type="Animation" id=1]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.886275, 0.113725, 0.113725, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+tracks/0/type = "value"
+tracks/0/path = NodePath("MarginContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+tracks/0/type = "value"
+tracks/0/path = NodePath("MarginContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="hud" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_right = 3
+custom_constants/margin_top = 0
+custom_constants/margin_left = 3
+custom_constants/margin_bottom = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 3.0
+margin_right = 125.0
+margin_bottom = 11.0
+size_flags_vertical = 2
+
+[node name="anim3" type="AnimationPlayer" parent="MarginContainer/HBoxContainer"]
+anims/fade = SubResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+margin_top = 2.0
+margin_right = 9.0
+margin_bottom = 11.0
+size_flags_vertical = 8
+texture = ExtResource( 2 )
+
+[node name="res_lbl" type="Label" parent="MarginContainer/HBoxContainer"]
+margin_left = 13.0
+margin_right = 13.0
+margin_bottom = 11.0
+size_flags_vertical = 2
+custom_fonts/font = ExtResource( 3 )
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+margin_left = 17.0
+margin_top = 2.0
+margin_right = 26.0
+margin_bottom = 11.0
+size_flags_vertical = 8
+texture = ExtResource( 4 )
+
+[node name="pop_lbl" type="Label" parent="MarginContainer/HBoxContainer"]
+margin_left = 30.0
+margin_right = 30.0
+margin_bottom = 11.0
+size_flags_vertical = 2
+custom_fonts/font = ExtResource( 3 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 90.0
+margin_top = 60.0
+margin_right = 125.0
+margin_bottom = 69.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+custom_constants/separation = 4
+
+[node name="housing_btn" type="TextureButton" parent="MarginContainer/HBoxContainer2"]
+margin_right = 9.0
+margin_bottom = 9.0
+size_flags_horizontal = 2
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 7 )
+
+[node name="launch_btn" type="TextureButton" parent="MarginContainer/HBoxContainer2"]
+margin_left = 13.0
+margin_right = 22.0
+margin_bottom = 9.0
+size_flags_horizontal = 2
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 10 )
+
+[node name="mine_btn" type="TextureButton" parent="MarginContainer/HBoxContainer2"]
+margin_left = 26.0
+margin_right = 35.0
+margin_bottom = 9.0
+size_flags_horizontal = 2
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 13 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/fade = SubResource( 2 )
+
+[node name="anim2" type="AnimationPlayer" parent="."]
+anims/fade = SubResource( 3 )
+[connection signal="pressed" from="MarginContainer/HBoxContainer2/housing_btn" to="." method="_on_housing_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer2/launch_btn" to="." method="_on_launch_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer2/mine_btn" to="." method="_on_mine_btn_pressed"]

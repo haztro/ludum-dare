@@ -1,0 +1,210 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://game.gd" type="Script" id=1]
+[ext_resource path="res://space/rocket.tscn" type="PackedScene" id=2]
+[ext_resource path="res://hud.tscn" type="PackedScene" id=3]
+[ext_resource path="res://art/bg.png" type="Texture" id=4]
+[ext_resource path="res://space/moon.tscn" type="PackedScene" id=5]
+[ext_resource path="res://space/earth.tscn" type="PackedScene" id=6]
+[ext_resource path="res://housing/housing.tscn" type="PackedScene" id=7]
+[ext_resource path="res://launch_site/launch_site.tscn" type="PackedScene" id=8]
+[ext_resource path="res://mine/mine.tscn" type="PackedScene" id=9]
+[ext_resource path="res://font1.tres" type="DynamicFont" id=10]
+[ext_resource path="res://art/arrow.png" type="Texture" id=11]
+[ext_resource path="res://art/arrow_pressed.png" type="Texture" id=12]
+[ext_resource path="res://art/arrow_hover.png" type="Texture" id=13]
+[ext_resource path="res://housing/worker.png" type="Texture" id=14]
+[ext_resource path="res://launch_site/engineer.png" type="Texture" id=15]
+[ext_resource path="res://mine/scientist.png" type="Texture" id=16]
+[ext_resource path="res://art/civilian.png" type="Texture" id=17]
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("MarginContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="game" type="Node2D"]
+script = ExtResource( 1 )
+rocket = ExtResource( 2 )
+
+[node name="hud" parent="." instance=ExtResource( 3 )]
+
+[node name="rocket_timer" type="Timer" parent="."]
+
+[node name="mine_timer" type="Timer" parent="."]
+
+[node name="earth_timer" type="Timer" parent="."]
+
+[node name="space" type="Node2D" parent="."]
+
+[node name="background" type="Sprite" parent="space"]
+position = Vector2( -0.291992, 0 )
+texture = ExtResource( 4 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 128, 72 )
+
+[node name="moon" parent="space" instance=ExtResource( 5 )]
+position = Vector2( 105, 20 )
+
+[node name="earth" parent="space" instance=ExtResource( 6 )]
+position = Vector2( 21, 57 )
+
+[node name="housing" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="launch_site" parent="." instance=ExtResource( 8 )]
+visible = false
+
+[node name="mine" parent="." instance=ExtResource( 9 )]
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+editor/display_folded = true
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 128.0
+margin_bottom = 72.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+custom_constants/margin_top = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_top = 15.0
+margin_right = 128.0
+margin_bottom = 54.0
+size_flags_horizontal = 5
+size_flags_vertical = 0
+custom_constants/separation = 4
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_left = 45.0
+margin_right = 82.0
+margin_bottom = 11.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.556863, 0.00392157, 0.00392157, 1 )
+custom_constants/line_spacing = -4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 15.0
+margin_right = 128.0
+margin_bottom = 26.0
+size_flags_vertical = 3
+custom_constants/separation = -35
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 97.0
+margin_bottom = 11.0
+size_flags_horizontal = 10
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 10 )
+text = "       HUMANS SAVED:  "
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 95.0
+margin_right = 95.0
+margin_bottom = 11.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.333333, 1, 0.215686, 1 )
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+margin_left = 59.0
+margin_top = 30.0
+margin_right = 68.0
+margin_bottom = 39.0
+size_flags_horizontal = 4
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 12 )
+texture_hover = ExtResource( 13 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/fade = SubResource( 3 )
+
+[node name="stats" type="Node2D" parent="."]
+editor/display_folded = true
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="stats"]
+margin_left = 110.243
+margin_top = 27.9023
+margin_right = 119.243
+margin_bottom = 57.9023
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_constants/separation = -2
+
+[node name="TextureRect" type="TextureRect" parent="stats/VBoxContainer"]
+margin_right = 9.0
+margin_bottom = 9.0
+texture = ExtResource( 14 )
+
+[node name="TextureRect2" type="TextureRect" parent="stats/VBoxContainer"]
+margin_top = 7.0
+margin_right = 9.0
+margin_bottom = 16.0
+texture = ExtResource( 15 )
+
+[node name="TextureRect3" type="TextureRect" parent="stats/VBoxContainer"]
+margin_top = 14.0
+margin_right = 9.0
+margin_bottom = 23.0
+texture = ExtResource( 16 )
+
+[node name="TextureRect4" type="TextureRect" parent="stats/VBoxContainer"]
+margin_top = 21.0
+margin_right = 9.0
+margin_bottom = 30.0
+texture = ExtResource( 17 )
+
+[node name="Label" type="Label" parent="stats"]
+margin_left = 119.7
+margin_top = 25.0901
+margin_right = 123.7
+margin_bottom = 36.0901
+custom_fonts/font = ExtResource( 10 )
+text = "1"
+
+[node name="Label2" type="Label" parent="stats"]
+margin_left = 120.137
+margin_top = 32.2546
+margin_right = 124.137
+margin_bottom = 43.2546
+custom_fonts/font = ExtResource( 10 )
+text = "1"
+
+[node name="Label3" type="Label" parent="stats"]
+margin_left = 120.253
+margin_top = 39.0447
+margin_right = 124.253
+margin_bottom = 50.0447
+custom_fonts/font = ExtResource( 10 )
+text = "1"
+
+[node name="Label4" type="Label" parent="stats"]
+margin_left = 120.164
+margin_top = 45.5765
+margin_right = 124.164
+margin_bottom = 56.5765
+custom_fonts/font = ExtResource( 10 )
+text = "1"
+[connection signal="timeout" from="rocket_timer" to="." method="_on_rocket_timer_timeout"]
+[connection signal="timeout" from="mine_timer" to="." method="_on_mine_timer_timeout"]
+[connection signal="timeout" from="earth_timer" to="." method="_on_earth_timer_timeout"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]

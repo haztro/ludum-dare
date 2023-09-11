@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Knight.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/art/knight/king_body.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/knight/king_head.png" type="Texture" id=3]
+[ext_resource path="res://King.gd" type="Script" id=4]
+
+[node name="King" instance=ExtResource( 1 )]
+position = Vector2( 100.257, 100 )
+script = ExtResource( 4 )
+
+[node name="body" parent="." index="2"]
+texture = ExtResource( 2 )
+
+[node name="head" parent="." index="3"]
+texture = ExtResource( 3 )
